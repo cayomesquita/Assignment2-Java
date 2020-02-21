@@ -74,24 +74,27 @@ public class MagicSquare {
      * Explanation: The sums of each row and col are equal.
      */
     public static boolean isMagicSquare(Integer[][] square) {
+        int checkSum = 0;
         for (int i = 0; i < square.length; i++) {
-            for (int j = 0; j < square.length; j++) {
-                if (!checkRowCollumn(square, i, j)) {
-                    return false;
-                }
+            checkSum += square[0][i];
+        }
+
+        for (int i = 0; i < square.length; i++) {
+            if (!checkRowCollumn(square, i, checkSum)) {
+                return false;
             }
         }
         return true;
     }
 
-    private static boolean checkRowCollumn(Integer[][] square, int row, int collumn) {
+    private static boolean checkRowCollumn(Integer[][] square, int navIndex, int checkSum) {
         int sumRow = 0;
         int sumCollumn = 0;
         for (int i = 0; i < square.length; i++) {
-            sumRow += square[row][i];
-            sumCollumn += square[i][collumn];
+            sumRow += square[navIndex][i];
+            sumCollumn += square[i][navIndex];
         }
-        return sumCollumn == sumRow;
+        return sumCollumn == sumRow && sumCollumn == checkSum;
     }
 
     /**
